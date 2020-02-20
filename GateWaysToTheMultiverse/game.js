@@ -1,5 +1,5 @@
 //Import JS files that contain scene data
-import Test from "GateWaysToTheMultiverse/scenes/test.js";
+import Test from "./GateWaysToTheMultiverse/scenes/test.js";
 
 //Create our scenes
 var test = new Test(); //Change this when we create new files to import
