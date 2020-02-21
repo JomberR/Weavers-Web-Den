@@ -1,5 +1,5 @@
 //Import JS files that contain scene data
-import Test from "./scenes/test";
+import Test from "./scenes/test.js";
 
 //Create our scenes
 var test = new Test(); //Change this when we create new files to import
