@@ -6,7 +6,7 @@ class Test extends Phaser.Scene{
 
     preload(){
         //Image used for our tileset.
-        this.load.image("tile", "./assets/images/basicTile.png");
+        this.load.image("tile", "./scenes/assets/images/basicTile.png");
     }
 
     create(){
