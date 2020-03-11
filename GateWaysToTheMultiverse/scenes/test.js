@@ -40,8 +40,8 @@ class Test extends Phaser.Scene{
         //0, 0 is where we place the layer. We can use this to make rooms!!!
         var layer = map.createStaticLayer(0, tiles);
 
-        var player = new Player({scene:this, x:32, y:32});
-
+        var player = new Player(this, 32, 32);
+        
     }
 
     update(){
