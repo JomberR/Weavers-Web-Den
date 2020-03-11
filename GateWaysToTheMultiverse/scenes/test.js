@@ -26,15 +26,18 @@ class Test extends Phaser.Scene{
 */
 
         //Our level
-        var level = [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0]
+        var levelFloor = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
         ];
 
         //What loads our map.
-        var map = this.make.tilemap({data: level, tileWidth: 64, tileHeight: 64});
+        var map = this.make.tilemap({data: levelFloor, tileWidth: 64, tileHeight: 64});
         var tiles = map.addTilesetImage("tile");
 
         //0, 0 is where we place the layer. We can use this to make rooms!!!
