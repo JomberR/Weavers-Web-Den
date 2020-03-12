@@ -15,41 +15,77 @@ class Player extends Phaser.GameObjects.Sprite{
         this.scene.input.keyboard.on("keydown-NUMPAD_THREE", this.key3, this);
         this.scene.input.keyboard.on("keydown-NUMPAD_ONE", this.key1, this);
         this.scene.input.keyboard.on("keydown-NUMPAD_SEVEN", this.key7, this);
+
+
     }
 
     //The functions to be called to move the player
 
     //Right
     key6(){
-        this.setPosition(this.x + 64, this.y);
+        if (this.checkWalkableTile(this.x + 64, this.y)){
+            this.setPosition(this.x + 64, this.y);
+        }
     }
     //Left
     key4(){
-        this.setPosition(this.x - 64, this.y);
+        if (this.checkWalkableTile(this.x - 64, this.y)){
+            this.setPosition(this.x - 64, this.y);
+        }
     }
     //Down
     key2(){
-        this.setPosition(this.x, this.y + 64);
+        if (this.checkWalkableTile(this.x, this.y + 64)){
+            this.setPosition(this.x, this.y + 64);
+        }
     }
     //Up
     key8(){
-        this.setPosition(this.x, this.y - 64);
+        if (this.checkWalkableTile(this.x, this.y - 64)){
+            this.setPosition(this.x, this.y - 64);
+        }
     }
     //Diagonal right-up
     key9(){
-        this.setPosition(this.x + 64, this.y - 64);
+        if (this.checkWalkableTile(this.x + 64, this.y - 64)){
+            this.setPosition(this.x + 64, this.y - 64);
+        }
     }
     //Right-down
     key3(){
-        this.setPosition(this.x + 64, this.y + 64);
+        if (this.checkWalkableTile(this.x + 64, this.y + 64)){
+            this.setPosition(this.x + 64, this.y + 64);
+        }
     }
     //Left-down
     key1(){
-        this.setPosition(this.x - 64, this.y + 64);
+        if (this.checkWalkableTile(this.x - 64, this.y + 64)){
+            this.setPosition(this.x - 64, this.y + 64);
+        }
     }
     //Left-up
     key7(){
-        this.setPosition(this.x - 64, this.y - 64);
+        if (this.checkWalkableTile(this.x - 64, this.y - 64)){
+            this.setPosition(this.x - 64, this.y - 64);
+        }
+    }
+
+    //Function that will detect whether or not the tile the player is trying to move in is walkable (i.e. a floor tile. Not a wall, or the abyss)
+
+    checkWalkableTile(x, y){
+        //Find the tilemap of the scene we're in. We fetch all of the children of the scene and look for the tilemap.
+        var children = this.scene.children.getAll();
+        var floor = children.find(element => element.isTilemap == true && element.name == "floor");
+        var searchTile = floor.hasTileAtWorldXY(x, y);
+        
+
+        //DEBUG!!!
+        //console.log(children.find(element => element.isTilemap == true && element.name == "floor"));
+        //console.log(floor);
+        //console.log(searchTile);
+        //
+
+        return searchTile;
     }
     
 }

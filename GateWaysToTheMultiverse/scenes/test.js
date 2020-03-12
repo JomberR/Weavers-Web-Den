@@ -41,7 +41,10 @@ class Test extends Phaser.Scene{
         var tiles = map.addTilesetImage("tile");
 
         //0, 0 is where we place the layer. We can use this to make rooms!!!
-        var layer = map.createStaticLayer(0, tiles);
+        var floor = map.createStaticLayer(0, tiles);
+
+        //We need to name the layer 'floor' so our pathfinding knows where to look for it.
+        floor.name = "floor";
 
         var player = new Player(this, 32, 32);
         
