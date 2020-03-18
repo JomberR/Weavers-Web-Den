@@ -1,3 +1,5 @@
+import Player from "./assets/imports/player.js";
+
 class Test extends Phaser.Scene{
 
     constructor(){
@@ -24,44 +26,28 @@ class Test extends Phaser.Scene{
 */
 
         //Our level
-        var level = [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0]
+        var levelFloor = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0]
         ];
 
         //What loads our map.
-        var map = this.make.tilemap({data: level, tileWidth: 64, tileHeight: 64});
+        var map = this.make.tilemap({data: levelFloor, tileWidth: 64, tileHeight: 64});
         var tiles = map.addTilesetImage("tile");
 
         //0, 0 is where we place the layer. We can use this to make rooms!!!
-        var layer = map.createStaticLayer(0, tiles, 128, 128);
+        var floor = map.createStaticLayer(0, tiles);
 
-        //THIS WILL BE MIGRATED TO A SEPARATE FILE
-        //Create the player
-        var player = this.add.sprite(160, 160, "player");
+        //We need to name the layer 'floor' so our pathfinding knows where to look for it.
+        floor.name = "floor";
 
-        //Create the keys in order to control the player
-        var key6 = this.input.keyboard.addKey("NUMPAD_SIX");
-        key6.on("down", function(event){
-            player.setPosition(player.x + 64, player.y);
-        });
-
-        var key4 = this.input.keyboard.addKey("NUMPAD_FOUR");
-        key4.on("down", function(event){
-            player.setPosition(player.x - 64, player.y);
-        });
-
-        var key2 = this.input.keyboard.addKey("NUMPAD_TWO");
-        key2.on("down", function(event){
-            player.setPosition(player.x, player.y + 64);
-        });
-
-        var key8 = this.input.keyboard.addKey("NUMPAD_EIGHT");
-        key8.on("down", function(event){
-            player.setPosition(player.x, player.y - 64);
-        });
+        var player = new Player(this, 32, 32);
+        
     }
 
     update(){
