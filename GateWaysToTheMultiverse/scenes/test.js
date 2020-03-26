@@ -8,8 +8,8 @@ class Test extends Phaser.Scene{
 
     preload(){
         //Image used for our tileset.
-        this.load.image("tile", "./GateWaysToTheMultiverse/scenes/assets/images/basicTile.png");
-        this.load.image("player", "./GateWaysToTheMultiverse/scenes/assets/images/basicPlayer.png")
+        this.load.image("tileMap", "./GateWaysToTheMultiverse/scenes/assets/images/basicTileset.png");
+        this.load.image("player", "./GateWaysToTheMultiverse/scenes/assets/images/basicPlayer.png");
     }
 
     create(){
@@ -27,18 +27,18 @@ class Test extends Phaser.Scene{
 
         //Our level
         var levelFloor = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        [0, 0, 0, 0,  1, 0, 0, 0,  0],
+        [0, 0, 0, 0,  1, 0, 0, 0,  0],
+        [0, 0, 0, 0,  0, 0, 0, 0,  0],
+        [0, 0, 0, -1, 0, 0, 0, 0,  0],
+        [0, 0, 0, 0,  0, 0, 0, -1, 0],
+        [0, 0, 0, 0,  1, 0, 0, 0,  0],
+        [0, 0, 0, 0,  1, 0, 0, 0,  0]
         ];
 
         //What loads our map.
         var map = this.make.tilemap({data: levelFloor, tileWidth: 64, tileHeight: 64});
-        var tiles = map.addTilesetImage("tile");
+        var tiles = map.addTilesetImage("tileMap");
 
         //0, 0 is where we place the layer. We can use this to make rooms!!!
         var floor = map.createStaticLayer(0, tiles);
