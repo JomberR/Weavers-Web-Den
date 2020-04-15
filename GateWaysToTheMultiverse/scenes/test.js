@@ -1,4 +1,5 @@
 import Player from "./assets/imports/player.js";
+import Enemy from "./assets/imports/enemy.js";
 
 class Test extends Phaser.Scene{
 
@@ -10,6 +11,7 @@ class Test extends Phaser.Scene{
         //Image used for our tileset.
         this.load.image("tileMap", "./GateWaysToTheMultiverse/scenes/assets/images/basicTileset.png");
         this.load.image("player", "./GateWaysToTheMultiverse/scenes/assets/images/basicPlayer.png");
+        this.load.image("enemy", "./GateWaysToTheMultiverse/scenes/assets/images/basicEnemy.png");
     }
 
     create(){
@@ -47,6 +49,8 @@ class Test extends Phaser.Scene{
         floor.name = "floor";
 
         var player = new Player(this, 32, 32);
+        var enemy = new Enemy(this, 160, 160);
+        var enemy2 = new Enemy(this, 416, 224);
         
     }
 

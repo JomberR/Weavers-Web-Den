@@ -1,8 +1,8 @@
 //This is our Player class. We'll use this in practically every scene, since it controls the player.
 
-class Player extends Phaser.GameObjects.Sprite{
+class Player extends Phaser.GameObjects.Sprite {
 
-    constructor(scene, x, y){
+    constructor(scene, x, y) {
         super(scene, x, y, "player");
         this.scene.add.existing(this);
 
@@ -16,63 +16,62 @@ class Player extends Phaser.GameObjects.Sprite{
         this.scene.input.keyboard.on("keydown-NUMPAD_ONE", this.key1, this);
         this.scene.input.keyboard.on("keydown-NUMPAD_SEVEN", this.key7, this);
 
-
     }
 
-    //The functions to be called to move the player
+    //The functions to be called to move the player. Also possibly whack an enemy at the tile, since we attack with the movement keys.
 
     //Right
-    key6(){
-        if (this.checkWalkableTile(this.x + 64, this.y)){
+    key6() {
+        if (this.checkWalkableTile(this.x + 64, this.y)) {
             this.setPosition(this.x + 64, this.y);
         }
     }
     //Left
-    key4(){
-        if (this.checkWalkableTile(this.x - 64, this.y)){
+    key4() {
+        if (this.checkWalkableTile(this.x - 64, this.y)) {
             this.setPosition(this.x - 64, this.y);
         }
     }
     //Down
-    key2(){
-        if (this.checkWalkableTile(this.x, this.y + 64)){
+    key2() {
+        if (this.checkWalkableTile(this.x, this.y + 64)) {
             this.setPosition(this.x, this.y + 64);
         }
     }
     //Up
-    key8(){
-        if (this.checkWalkableTile(this.x, this.y - 64)){
+    key8() {
+        if (this.checkWalkableTile(this.x, this.y - 64)) {
             this.setPosition(this.x, this.y - 64);
         }
     }
     //Diagonal right-up
-    key9(){
-        if (this.checkWalkableTile(this.x + 64, this.y - 64)){
+    key9() {
+        if (this.checkWalkableTile(this.x + 64, this.y - 64)) {
             this.setPosition(this.x + 64, this.y - 64);
         }
     }
     //Right-down
-    key3(){
-        if (this.checkWalkableTile(this.x + 64, this.y + 64)){
+    key3() {
+        if (this.checkWalkableTile(this.x + 64, this.y + 64)) {
             this.setPosition(this.x + 64, this.y + 64);
         }
     }
     //Left-down
-    key1(){
-        if (this.checkWalkableTile(this.x - 64, this.y + 64)){
+    key1() {
+        if (this.checkWalkableTile(this.x - 64, this.y + 64)) {
             this.setPosition(this.x - 64, this.y + 64);
         }
     }
     //Left-up
-    key7(){
-        if (this.checkWalkableTile(this.x - 64, this.y - 64)){
+    key7() {
+        if (this.checkWalkableTile(this.x - 64, this.y - 64)) {
             this.setPosition(this.x - 64, this.y - 64);
         }
     }
 
     //Function that will detect whether or not the tile the player is trying to move in is walkable (i.e. a floor tile. Not a wall, or the abyss)
 
-    checkWalkableTile(x, y){
+    checkWalkableTile(x, y) {
 
         //Start with the assumption we can move.
         var canMove = true;
@@ -85,23 +84,53 @@ class Player extends Phaser.GameObjects.Sprite{
         var searchTile = floor.hasTileAtWorldXY(x, y);
 
         //If searchTile returned false, which means we couldn't find a tile, set canMove to false to prevent movement.
-        if (!searchTile){
+        if (!searchTile) {
             canMove = false;
         }
 
-        //If we have a tile, check if it's a wall (index 1). If it is, set canMove to false and prevent movement.
-        if (searchTile){
+        //We have a tile. Now we need to identify what it is, or what is on it.
+        else if (searchTile) {
             var tile = floor.getTileAtWorldXY(x, y);
-            if (tile.index == 1){
+
+            //If we have a tile, check if it's a wall (index 1). If it is, set canMove to false and prevent movement.
+            if (tile.index == 1) {
                 canMove = false;
+            }
+
+            //Check if we have a mobile (mob, enemy, anything that moves) at the tile.
+            else {
+                //First, fetch the list of objects we have in the scene
+                var entityList = this.scene.children.list;
+
+                //Go through the list and pick out the mobiles.
+                entityList.forEach(element => {
+                    if (element.getData("entity") == "mobile") {
+                        var mobile = element;
+
+                        //Fraking nested if statements. Okay, check if the mobile is where we want to move.
+                        if (mobile.x == x && mobile.y == y) {
+                            //If there is a mobile, disable movement.
+                            canMove = false;
+
+                            //INSERT COMBAT FUNCTION!!!
+                            this.bumpAttack(mobile);
+                        }
+                    }
+                });
             }
         }
 
+
         //If nothing says we can't move, allow movement.
-        //We COULD just search if we have an index of 0, meaning the floor tile. However, we could have other terrain that isn't a floor but is still walkable.
         return canMove;
     }
-    
+
+    //This is where we call ATTACK ATTACK ATTACK!
+    bumpAttack(enemy){
+        console.log("SLASH!");
+    }
+
 }
+
 
 export default Player;
