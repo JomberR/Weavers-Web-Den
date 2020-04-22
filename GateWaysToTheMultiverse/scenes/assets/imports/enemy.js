@@ -4,6 +4,7 @@ class Enemy extends Phaser.GameObjects.Sprite{
         super(scene, x, y, "enemy");
         this.scene.add.existing(this);
         this.setData("entity", "mobile");
+        this.setData("health", 3);
     }
 }
 

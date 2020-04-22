@@ -112,8 +112,8 @@ class Player extends Phaser.GameObjects.Sprite {
                             //If there is a mobile, disable movement.
                             canMove = false;
 
-                            //INSERT COMBAT FUNCTION!!!
-                            this.bumpAttack(mobile);
+                            //Initiate combat.
+                            this.bumpAttack(mobile, x, y);
                         }
                     }
                 });
@@ -126,8 +126,28 @@ class Player extends Phaser.GameObjects.Sprite {
     }
 
     //This is where we call ATTACK ATTACK ATTACK!
-    bumpAttack(enemy){
-        console.log("SLASH!");
+    bumpAttack(enemy, x, y){
+
+        //The short animation to play when attacking the enemy.
+        this.scene.tweens.add({
+            targets: this,
+            x: x,
+            y: y,
+            yoyo: true,
+            duration: 50
+        });
+
+        //Get the health of the enemy and subtract it by one.
+        var enemyData = enemy.data.values;
+        console.log(enemyData.health);
+        enemyData.health -= 1;
+
+        //Check if the health of the enemy is equal to or less than zero.
+        if (enemyData.health <= 0){
+            enemy.destroy();
+        }
+        
+        
     }
 
 }
